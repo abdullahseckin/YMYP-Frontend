@@ -3,7 +3,7 @@
 
 <head>
     <title>Login Page</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth-style.css">
 </head>
 
 <body>
@@ -11,7 +11,6 @@
         <div class="head">
             <h1>Login Page</h1>
         </div>
-        <hr>
 
         <div class="body">
             <div>
@@ -36,14 +35,22 @@
             </div>
 
             <div class="mt">
-                <button>Sign In</button>
+                <button onclick="signIn()" class="btn">
+                    Sign In
+                </button>
             </div>
 
-            <div class="mt signup">
-                <a href="#">Haven't you're account? Sign Up</a>
+            <div class="mt-2 signup">
+                <a href="./register.html">Haven't you're account? Sign Up</a>
             </div>
         </div>
     </div>
+
+    <script>
+        function signIn(){
+            window.location.href = "./index.html"
+        }
+    </script>
 </body>
 
 </html>

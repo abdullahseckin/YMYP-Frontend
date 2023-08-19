@@ -1,7 +1,10 @@
+@import url('https://fonts.cdnfonts.com/css/poppins');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
@@ -13,18 +16,30 @@ body {
     background: linear-gradient(90deg, rgba(2, 0, 36, 1) 0%, rgba(121, 91, 9, 1) 35%, rgba(0, 134, 255, 1) 100%);
 }
 
-.container {
-    border: 1px solid;
+.container {    
+    padding: 30px;
+    border: 1px solid #525255;
     border-radius: 8px;
-    box-shadow: 1px 4px 10px 1px;
-    background-color: rgb(227, 233, 233);
+    box-shadow: 1px 4px 50px;
+    background-color: transparent;
+    backdrop-filter: blur(50px);
+}
+
+label, a, h1{
+    color: #cdccda;
+}
+
+a{    
+    text-decoration: none;
+    font-size: 12px;
 }
 
 .head {
     text-align: center;
     /* background-color: red; */
     padding: 15px;
-    border-radius: 8px
+    border-radius: 8px;
+    border-bottom: 1px solid;
 }
 
 .body {
@@ -47,7 +62,11 @@ input[type="checkbox"] {
     margin-top: 8px;
 }
 
-button {
+.mt-2{
+    margin-top: 16px;
+}
+
+.btn{
     width: 100%;
     padding: 7px;
     border-radius: 8px;
@@ -56,7 +75,7 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+.btn:hover {
     background-color: aliceblue;
 }
 
@@ -68,5 +87,4 @@ button:hover {
 
 .signup a {
     float: right;
-    margin-bottom: 10px;
 }
