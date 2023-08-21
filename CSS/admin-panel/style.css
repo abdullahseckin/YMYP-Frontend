@@ -102,3 +102,35 @@ nav ul li a{
     padding: 15px;
     margin-bottom: 10px;
 }
+
+
+.dropdown{
+    position: relative;
+}
+
+.dropdown-content{
+    height: 0px;
+    position: absolute;
+    padding: 0px 16px;
+    top:55px;
+    background-color: black;
+    transition: height 1s;
+}
+
+.dropdown-content a{
+    color: transparent;
+    transition: color 1s ease;
+}
+
+.dropdown:hover .dropdown-content{    
+    height: 100px;
+}
+
+.dropdown:hover .dropdown-content a{
+    color: white;
+}
+
+.dropdown-content a:hover{
+    background-color: #ccc;
+    color: black !important;
+}

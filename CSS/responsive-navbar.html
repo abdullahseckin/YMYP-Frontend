@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Navbar</title>
+
+    <style>
+        nav{
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            align-items: center;
+            background-color: bisque;
+        }
+
+        ul{
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+
+        ul li{
+            padding: 10px;            
+        }
+
+        ul li:hover{
+            border: 1px solid;
+            border-radius: 10px;
+            background-color: darkslategray;
+        }
+
+        ul li:hover a{            
+            color: white;
+        }
+
+        ul li a{
+            text-decoration: none;
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <h1>Logo</h1>
+        
+        <ul>
+            <li>
+                <a href="#">Home</a>
+            </li>
+            <li>
+                <a href="#">About</a>
+            </li>
+            <li>
+                <a href="#">Contact</a>
+            </li>
+        </ul>
+    </nav>
+</body>
+</html>
