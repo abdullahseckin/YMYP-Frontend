@@ -134,3 +134,26 @@ nav ul li a{
     background-color: #ccc;
     color: black !important;
 }
+
+@media screen and (max-width:1080px) {
+    nav label:after{
+        content: '\2630';
+        font-size: 30px;
+    }
+
+    .sidebar{
+        display: none;
+    }
+
+    .content{
+        width: 100%;
+    }
+
+    .head{
+        display: none;
+    }
+
+    nav ul{
+        display: none
+    }
+}
