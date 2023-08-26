@@ -15,6 +15,9 @@ let konum = 20;
 let boyut = 18;
 let yilanUzunlugu = 3;
 let yilanParcalari = [];
+let skor = 0;
+let hiz = 10;
+let can = 3;
 class YilanParcasi{
     constructor(x,y){
         this.x = x;
@@ -28,8 +31,15 @@ function oyunuCiz(){
     elmayiCiz();
     yilanHareketiniGuncelle();    
     elmaninKonumunuGuncelle();
+    skoruCiz();   
+    hiziCiz();
+    canCiz();
+    const sonuc = oyunBittiMi();
 
-    setTimeout(oyunuCiz,100);
+    if(sonuc)
+        return;
+
+    setTimeout(oyunuCiz,1000/hiz);
 }
 
 function ekraniTemizle(){
@@ -61,18 +71,22 @@ function elmayiCiz(){
 function tusHareketleri(e){
 switch (e.keyCode) {
     case 37: //sol
+        if(hareketX === 1) return;
         hareketX = -1;
         hareketY = 0;
         break;
     case 38: //yukarı
+        if(hareketY === 1) return;
         hareketY = -1;
         hareketX = 0;
         break;
     case 39: //sağ
+        if(hareketX === -1) return;
         hareketX = 1;
         hareketY = 0;
         break;
     case 40: //aşağı
+        if(hareketY === -1) return;
         hareketY = 1;
         hareketX = 0;
         break;
@@ -105,8 +119,79 @@ function elmaninKonumunuGuncelle(){
         elmaX = Math.floor(Math.random() * konum);
         elmaY = Math.floor(Math.random() * konum);
 
+        let elmaKonumuMüsaitMi = false;
+        while(!elmaKonumuMüsaitMi){
+            elmaKonumuMüsaitMi = true;
+            for(let parca of yilanParcalari){
+                if(parca.x === elmaX && parca.y === elmaY){
+                    elmaX = Math.floor(Math.random() * konum);
+                    elmaY = Math.floor(Math.random() * konum);
+                    elmaKonumuMüsaitMi = false;
+                }
+            }
+        }
+
         yilanUzunlugu++;
+        skor += 10;
+
+        if(yilanUzunlugu % 3 === 0){
+            hiz +=3;
+        }
     }
 }
 
+function skoruCiz(){
+    ctx.fillStyle ="white";
+    ctx.font = "20px verdena";
+    ctx.fillText(`Skor: ${skor}`, canvasWidth - 80,30);
+}
+
+function hiziCiz(){
+    ctx.fillStyle = "white";
+    ctx.font = "20px verdena";
+    ctx.fillText(`Hız: ${hiz}`,canvasWidth-160,30);
+}
+
+function oyunBittiMi(){
+    let oyunBitti = false;
+    if(hareketX === 0 && hareketY ===0) return;
+
+    for(let index in yilanParcalari){
+        
+        let parca = yilanParcalari[index]
+        if(parca.x === x && parca.y === y){
+            can--;
+            if(can === 0){
+                oyunBitti = true
+                break;
+            }
+
+            yilanParcalari.splice(0, index);
+            yilanUzunlugu = yilanParcalari.length;
+            // Reset the score based on the new length
+            skor = yilanUzunlugu * 10;
+            hiz -= 3;
+            //oyunBitti = true;
+            break;
+        }
+    }
+
+    if(oyunBitti){
+        ctx.fillStyle = "white";
+        ctx.font = "50px verdena";
+        ctx.fillText(`Game Over!`, canvasWidth/4.5, canvasHeight/2);
+    }
+
+    return oyunBitti;
+}
+
+function canCiz(){
+    ctx.fillStyle = "white";
+    ctx.font = "20px verdena";
+    ctx.fillText(`Can: ${can}`,canvasWidth-230,30)
+}
+
+function yeniOyun(){
+    document.location.reload();
+}
 oyunuCiz();
