@@ -18,24 +18,7 @@ function oyunuCiz(){
     ekraniTemizle();
     yilaniCiz();
     elmayiCiz();
-
-    let sonucX = x+ hareketX;
-    let sonucY = y+ hareketY;
-
-    if(sonucY < 0){
-        sonucY = 19
-    }else if(sonucY > 20){
-        sonucY = 0
-    }
-
-    if(sonucX < 0){
-        sonucX = 19
-    }else if(sonucX > 19){
-        sonucX = 0;
-    }
-
-    x = sonucX;
-    y = sonucY;
+    yilanHareketiniGuncelle();    
 
     setTimeout(oyunuCiz,100);
 }
@@ -56,20 +39,45 @@ function elmayiCiz(){
 }
 
 function tusHareketleri(e){
-    if(e.keyCode === 38){ //yukarı
-        hareketY--;
-        hareketX = 0;
-    }else if(e.keyCode === 37){ //sola
-        hareketX--;
+switch (e.keyCode) {
+    case 37: //sol
+        hareketX = -1;
         hareketY = 0;
-    }else if(e.keyCode === 39){ //sağa
-        hareketX++;
-        hareketY = 0;
-    }else if(e.keyCode === 40){ //aşağı
-        hareketY++;
+        break;
+    case 38: //yukarı
+        hareketY = -1;
         hareketX = 0;
+        break;
+    case 39: //sağ
+        hareketX = 1;
+        hareketY = 0;
+        break;
+    case 40: //aşağı
+        hareketY = 1;
+        hareketX = 0;
+        break;
     }
-    console.log(e.keyCode);
+    
+}
+
+function yilanHareketiniGuncelle(){
+    let sonucX = x+ hareketX;
+    let sonucY = y+ hareketY;
+
+    if(sonucY < 0){
+        sonucY = 19
+    }else if(sonucY > 20){
+        sonucY = 0
+    }
+
+    if(sonucX < 0){
+        sonucX = 19
+    }else if(sonucX > 19){
+        sonucX = 0;
+    }
+
+    x = sonucX;
+    y = sonucY;
 }
 
 oyunuCiz();
