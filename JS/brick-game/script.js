@@ -236,7 +236,6 @@ const oyunuBaslat = () => {
 }
 
 function myKeydownFunction(e){
-    console.log(e);
     if(e.key === "Right" || e.key === "ArrowRight"){
         if(cubukX + 5 > width - cubukGenisligi) return;
 
