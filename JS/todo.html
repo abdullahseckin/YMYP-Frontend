@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Todo App</title>
+    <style>        
+    </style>
+</head>
+<body>
+    <div id="addForm">
+        <input id="work" type="text" placeholder="Some work...">
+        <button onclick="save()">Save</button>
+    </div>
+    <div id="updateForm">
+        <input id="updateWork" type="text" placeholder="Some work...">
+        <button>Update</button>
+        <button>Cancel</button>
+    </div>
+    <hr>
+    <ul id="todo-list">
+    </ul>
+
+
+    <script>
+        const todos = [];
+        let isUpdateFormActive = true;
+        let index = 0;
+
+        showTrueForm();
+
+        function showTrueForm(){
+            isUpdateFormActive = !isUpdateFormActive;
+
+            const addFormEl = document.getElementById("addForm");
+            const updateFormEl = document.getElementById("updateForm");
+
+            if(isUpdateFormActive){
+                addFormEl.style.display = "none";
+                updateFormEl.style.display = "block";
+            }else{
+                addFormEl.style.display = "block";
+                updateFormEl.style.display = "none";
+            }
+        }
+
+        function save(){
+            const inputElement = document.getElementById("work");
+            todos.push(inputElement.value);
+
+            setULList();
+
+            inputElement.value = "";
+            inputElement.focus();
+        }
+
+        const deleteTodo = (index) =>{
+            todos.splice(index,1);
+            setULList();
+        }
+
+        function setULList(){
+            let text = "";
+            for(let i in todos){
+                const value = todos[i];
+                text += `
+                <li>${value}</li>
+                <button onclick="get(${i})">Update</button>
+                <button onclick="deleteTodo(${i})">Delete</button>`
+            }
+
+            const ulElement = document.getElementById("todo-list");
+            ulElement.innerHTML = text;
+        }
+
+        const updateWorkEl = document.querySelector("#updateWork");
+
+        function get(i){
+            showTrueForm();
+            updateWorkEl.value = todos[i];
+            index = i;
+        }
+
+        function update(){
+            todos[index] = updateWorkEl.value;
+            showTrueForm();
+        }
+    </script>
+</body>
+</html>
