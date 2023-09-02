@@ -32,7 +32,6 @@ app.get("/api/hello",(req,res)=> {
 
 app.post("/api/todos/create",(req,res)=> {
     const body = req.body;
-    console.log(body);
     id++;
     const data = {
         id: id,
@@ -48,6 +47,28 @@ app.post("/api/todos/create",(req,res)=> {
 app.get("/api/todos",(req,res)=> {
     res.json(todos);
 });
+
+app.get("/api/todos/remove/:id", (req,res)=> {
+    const id = req.params.id;
+
+    const index = todos.findIndex(p=> p.id === +id);
+    if(index === -1) res.status(500).json({message: "The reacord you want to delete was no found!"});
+    else{
+        todos.splice(index,1);
+        res.json({message: "Remove is successful"})
+    }
+});
+
+app.post("/api/todos/update", (req,res)=>{
+    const body = req.body;
+
+    const index = todos.findIndex(p=> p.id === +body.id);
+    if(index === -1) res.status(500).json({message: "This record you want to delete was no found!"});
+    else{
+        todos[index].title = body.title;
+        res.json({message: "Update is successful"});
+    }
+})
 
 
 
