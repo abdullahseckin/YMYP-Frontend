@@ -5,7 +5,7 @@ const cors = require("cors");
 app.use(cors());
 app.use(express.json());
 
-const person = {
+let person = {
     name: "Taner Saydam",
     title: "Full Stack Sofware Traning",
     phone: "0(554) 654 8006",
@@ -18,42 +18,49 @@ const person = {
     `
 }
 
-const skills = [
+let skills = [
     {
+        id: 0,
         title: "C#",
         rate: 80
     },
     {
+        id: 1,
         title: "HTML",
         rate: 100
     },
     {
+        id: 2,
         title: "JS",
         rate: 50
     }
 ]
 
-const socialMedias = [
+let socialMedias = [
     {
+        id: 0,
         title: "Linkedin",
         link: "https://www.linkedin.com/in/taner-saydam-b26336222/",
         icon: "fa fa-linkedin"
     },
     {
+        id: 1,
         title: "Youtube",
         link: "https://www.youtube.com/channel/UC6Pw9YDMHq3EeNhIF8FMemw",
         icon: "fa fa-youtube"
     }    
 ]
 
-const workExperiences = [
+let workExperiences = [
     {
+        id: 0,
         title: "LEAD WEB DESIGNER",
         subTitle: "ETC College America",
         date: "2014/Present",
         description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci repellat corrupti eius excepturi est repellendus. Maiores, reiciendis excepturi, enim provident molestiae quisquam atque recusandae, id et quod consequuntur pariatur magni."
     },
     {
+        id: 1,
         title: "LEAD WEB DESIGNER",
         subTitle: "ETC College America",
         date: "2014/2016",
@@ -61,8 +68,9 @@ const workExperiences = [
     }
 ]
 
-const educations = [
+let educations = [
     {
+        id: 0,
         title: "ULUDAG UNIVERSITY",
         section: "Physict Departmant",
         date: "2006/2013",
@@ -84,6 +92,17 @@ app.get("/api/get", (req,res)=> {
     }
     res.json(myInformation);
 });
+
+app.post("/api/set", (req,res)=> {
+    const body = req.body;
+    person = body.person;
+    skills = body.skills;
+    socialMedias = body.socialMedias;
+    workExperiences = body.workExperiences;
+    educations = body.educations;
+
+    res.json({message: "Update is successful"})
+})
 
 
 

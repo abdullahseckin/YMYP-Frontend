@@ -13,8 +13,9 @@
 </head>
 
 <body>
-    <div class="edit-form">
+    <div id="edit-form" class="edit-form">
         <h1 class="center">Edit Form</h1>
+        <h1>Personel Information</h1>
         <div class="form-group">
             <label for="nameInput">Name</label>
             <input onkeyup="keyupInputAndSetValue('name',event)" type="text" id="nameInput">
@@ -23,26 +24,59 @@
             <label for="subTitleInput">Sub Title</label>
             <input onkeyup="keyupInputAndSetValue('title',event)" type="text" id="subTitleInput">
         </div>
-        <div class="form-group">
+        <!-- <div class="form-group">
             <label for="avatarInput">Avatar</label>
             <input type="file" id="avatarInput">
-        </div>
+        </div> -->
         <div class="form-group">
             <label for="dateOfBirthInput">Avatar</label>
             <input onchange="changeBirthDateAndSetValue(event)" type="date" id="dateOfBirthInput">
         </div>
+        <div class="form-group">
+            <label for="phoneInput">Phone</label>
+            <input onkeyup="keyupInputAndSetValue('phone',event)" type="text" id="phoneInput">
+        </div>
+        <div class="form-group">
+            <label for="emailInput">Email</label>
+            <input onkeyup="keyupInputAndSetValue('email',event)" type="text" id="emailInput">
+        </div>
+        <div class="form-group">
+            <label for="addressInput">Address</label>
+            <input onkeyup="keyupInputAndSetValue('address',event)" type="text" id="addressInput">
+        </div>
+        <div class="form-group">
+            <label for="aboutMeInput">Address</label>
+            <textarea rows="10" onkeyup="keyupInputAndSetValue('aboutMe',event)" type="text" id="aboutMeInput">
+            </textarea>
+        </div>
+        <hr>
+        <h1>Skill
+            <button onclick="createSkillEditFormDivField()" class="btn-3">+</button>
+        </h1>
+        <div id="skill-div">
+
+        </div>        
+        <div class="form-group">
+            <button class="btn-2" onclick="save()">Save</button>
+            <button class="btn-2" onclick="hideEditForm()">Cancel</button>
+        </div>
     </div>
 
-    <div id="blog" class="print-area main" style="display: none;">
+    <div id="blog" class="print-area" style="display: none;">
         <div class="header">           
             <div class="header-text">
                 <img id="avatar">
                 <h1 id="name"></h1>
                 <p id="title"></p>
-            </div>            
+            </div>                        
             <div class="print">
                 <a href="#">
                     <i class="fa fa-print"></i>
+                </a>                
+            </div>
+            <div class="print">
+                <a onclick="showEditForm()" class="cursor">
+                    <i class="fa fa-edit"></i>
                 </a>
             </div>
         </div>

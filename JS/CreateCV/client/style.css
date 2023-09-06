@@ -345,17 +345,26 @@ p{
 }
 
 .edit-form{
-    /* display: none; */
+    display: none;
     float: left;
     width: 40%;
     margin: 50px 10px 0px 50px;
+}
+
+.main{
+    float: left;
+    width: 50%;
+}
+
+.cursor{
+    cursor: pointer;
 }
 
 .center{
     text-align: center;
 }
 
-input{
+input, textarea{
     width: 100%;
     font-size: 1.5rem;
     padding: 5px 5px 5px 10px;
@@ -370,10 +379,45 @@ label{
     margin-bottom: 20px;
 }
 
-.main{
+.btn{
+    width: 100%;
+    margin-left: 10px;
     float: left;
-    width: 50%;
+    font-size: 1.5rem;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-top: 10px;
 }
+
+.btn-2{
+    width: 48%;
+    margin-left: 10px;
+    float: left;
+    font-size: 1.5rem;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.btn-3{
+    font-size: 1.5rem;
+    padding: 10px;
+    border-radius: 20px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.btn-2:hover, .btn:hover, .btn-3:hover{
+    background-color: brown;
+    color: white;    
+}
+
+
 
 @media screen and (max-width:1250px) {
     .skills{
