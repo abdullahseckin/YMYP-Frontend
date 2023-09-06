@@ -13,8 +13,27 @@
 </head>
 
 <body>
+    <div class="edit-form">
+        <h1 class="center">Edit Form</h1>
+        <div class="form-group">
+            <label for="nameInput">Name</label>
+            <input onkeyup="keyupInputAndSetValue('name',event)" type="text" id="nameInput">
+        </div>
+        <div class="form-group">
+            <label for="subTitleInput">Sub Title</label>
+            <input onkeyup="keyupInputAndSetValue('title',event)" type="text" id="subTitleInput">
+        </div>
+        <div class="form-group">
+            <label for="avatarInput">Avatar</label>
+            <input type="file" id="avatarInput">
+        </div>
+        <div class="form-group">
+            <label for="dateOfBirthInput">Avatar</label>
+            <input onchange="changeBirthDateAndSetValue(event)" type="date" id="dateOfBirthInput">
+        </div>
+    </div>
 
-    <div id="blog" class="print-area" style="display: none;">
+    <div id="blog" class="print-area main" style="display: none;">
         <div class="header">           
             <div class="header-text">
                 <img id="avatar">
@@ -33,6 +52,12 @@
                 <div class="contact">
                     <h1 class="content-head">CONTACT</h1>              
                     <ul class="information-ul">
+                        <li>
+                            <i class="fa-solid fa-calendar-days"></i>
+                            <span id="dateOfBirth">
+                                
+                            </span>
+                        </li>
                         <li>
                             <i class="fa fa-phone"></i>
                             <span id="phone">
@@ -83,7 +108,7 @@
                 </div>
             </div>
         </div>
-    </div> 
+    </div>     
     
     <div id="blog-loading" class="print-area" style="display: none; border-radius: 20px;">
         <div class="header" style="background-color: rgb(87, 86, 86);">           

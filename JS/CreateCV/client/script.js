@@ -1,12 +1,14 @@
 get();
+let day =  "01";
+let month =  "01";
+let year =  "2023";
 
 function get() {
     document.getElementById("blog").style.display = "none";
     document.getElementById("blog-loading").style.display = "block";
     //document.getElementById("spinner").style.display = "flex";
     document.getElementById("error").style.display = "none";
-    setTimeout(()=> {
-        axios.get("http://localhost:5000/api/get")
+    axios.get("http://localhost:5000/api/get")
         .then(res => {
             const myData = res.data;
             console.log(myData);
@@ -25,12 +27,7 @@ function get() {
             document.getElementById("blog-loading").style.display = "none";
             document.getElementById("spinner").style.display = "none";
             document.getElementById("error").style.display = "flex";
-        })
-        
-    },3000)
-
-
-    
+        });
 }
 
 function tryAgain(){
@@ -38,14 +35,46 @@ function tryAgain(){
 }
 
 function setMyInformation(person) {
+    //HTML Çıktı Elementleri
     document.getElementById("name").innerText = person.name;
     document.getElementById("title").innerText = person.title;
     document.getElementById("avatar").src = person.avatar;
     document.getElementById("phone").innerText = person.phone;
     document.getElementById("email").innerText = person.email;
     document.getElementById("address").innerText = person.address;
-    document.getElementById("aboutMe").innerHTML = person.aboutMe;
+    document.getElementById("aboutMe").innerHTML = person.aboutMe;     
+    document.getElementById("dateOfBirth").innerText = setAndConvertDate(person.dateOfBirth);
+
+
+    //HTML INPUT VS Girdi Elementleri
+    document.getElementById("nameInput").value = person.name;
+    document.getElementById("subTitleInput").value = person.title;
+    document.getElementById("dateOfBirthInput").value = `${year}-${month}-${day}`
 }
+
+function keyupInputAndSetValue(id,event){
+    document.getElementById(id).innerText = event.target.value;
+}
+
+function changeBirthDateAndSetValue(event){    
+    document.getElementById("dateOfBirth").innerText = setAndConvertDate(event.target.value);
+}
+
+
+function setAndConvertDate(data){
+    const date = new Date(data);   
+    day =  date.getDate();
+    day = day.toString().length === 1 ? "0" + day.toString() : day;
+
+    month =  date.getMonth() + 1;
+    month = month.toString().length === 1 ? "0" + month.toString() : month;
+
+    year =  date.getFullYear();
+    const dateString = `${day}/${month}/${year}`
+    return dateString;
+}
+
+
 
 
 function setMySkills(skills) {
