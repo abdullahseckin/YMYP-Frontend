@@ -43,8 +43,10 @@ app.get("/api/getall", async(req,res)=> {
 
 app.get("/api/add", async(req,res)=> {
     response(res, async()=> {
+        // const body = new Todo(req.body);
+        // await body.save();
         const todo = new Todo();
-        todo._id = "1";        
+        todo._id = "3";        
         todo.work = "Deneme";
         todo.isCompleted = true
 
