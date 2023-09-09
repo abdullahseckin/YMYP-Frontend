@@ -130,9 +130,9 @@ function getSkillEditFormDivField(skill){
     return `
     <div id="skillEditDiv${skillEditId}" data-id="${skill.id}" class="form-group">
         <label for="skillTitleInput">Title</label>
-        <input onkeyup="keyupGetAndSetSkillInputValue(event,'title')" type="text" id="skillTitleInput${skillEditId}" data-id="${skill.id}" value="${skill.title}">
+        <input onkeyup="keyupGetAndSetSkillInputValue(event,'title','skills')" type="text" id="skillTitleInput${skillEditId}" data-id="${skill.id}" value="${skill.title}">
         <label for="skillRateInput">Rate</label>
-        <input onkeyup="keyupGetAndSetSkillInputValue(event,'rate')" type="num" max="100" min="0" id="skillRateInput${skillEditId}" data-id="${skill.id}" value="${skill.rate}">
+        <input onkeyup="keyupGetAndSetSkillInputValue(event,'rate','skills')" type="num" max="100" min="0" id="skillRateInput${skillEditId}" data-id="${skill.id}" value="${skill.rate}">
         <button class="btn" onclick="removeSkillForEditForm('skillEditDiv${skillEditId}')">Sil</button>
     </div>`
 }
@@ -151,17 +151,12 @@ function createSkillEditFormDivField(){
     createSkillElementForShowField(myData.skills);
 }
 
-function keyupGetAndSetSkillInputValue(event,name){
+function keyupGetAndSetSkillInputValue(event,name,objectName){
     const element = event.target;
     const id = element.dataset["id"];
     const index = myData.skills.findIndex(p=> p.id == id);
-    // if(name === "title"){
-    //     myData.skill[index].title = element.value
-    // }else if(name === "rate"){
-    //     myData.skills[index].rate = element.value
-    // }
 
-    myData.skills[index][name] = element.value;
+    myData[objectName][index][name] = element.value;
     createSkillElementForShowField(myData.skills);
 }
 
