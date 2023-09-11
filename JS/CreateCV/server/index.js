@@ -1,43 +1,20 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
 const { v4: uuidv4 } = require('uuid');
-const uri = "mongodb+srv://test:1@testdb.qrdkma9.mongodb.net/";
+const Personal = require("./models/personal")
+const Skill = require("./models/skill")
+const SocialMedia = require("./models/social-media")
+const WorkExperience = require("./models/work-experience")
+const Education = require("./models/education")
+const connect = require("./connection");
 
-mongoose.connect(uri).then(res=> {
-    console.log("Mongodb bağlantısı başarılı");
-});
-
-const personalSchema = new Schema({
-    name: String,
-    title: String,
-    phone: String,
-    email: String,
-    address: String,
-    dateOfBirth: Date,
-    avatar: String,
-    aboutMe: String
-});
-
-const Personal = mongoose.model("Personal", personalSchema);
-
-const skillSchema = new Schema({
-    _id: String,
-    title: {
-        type: String,
-        unique: true
-    },
-    rate: Number
-});
-
-const Skill = mongoose.model("Skill",skillSchema);
+connect();
 
 app.use(cors());
 app.use(express.json());
 
-let person = {
+let person = {    
     name: "Taner Saydam",
     title: "Full Stack Sofware Traning",
     phone: "0(554) 654 8006",
@@ -67,13 +44,11 @@ let skills = [
 
 let socialMedias = [
     {
-        id: 0,
         title: "Linkedin",
         link: "https://www.linkedin.com/in/taner-saydam-b26336222/",
         icon: "fa fa-linkedin"
     },
     {
-        id: 1,
         title: "Youtube",
         link: "https://www.youtube.com/channel/UC6Pw9YDMHq3EeNhIF8FMemw",
         icon: "fa fa-youtube"
@@ -82,14 +57,12 @@ let socialMedias = [
 
 let workExperiences = [
     {
-        id: 0,
         title: "LEAD WEB DESIGNER",
         subTitle: "ETC College America",
         date: "2014/Present",
         description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci repellat corrupti eius excepturi est repellendus. Maiores, reiciendis excepturi, enim provident molestiae quisquam atque recusandae, id et quod consequuntur pariatur magni."
     },
     {
-        id: 1,
         title: "LEAD WEB DESIGNER",
         subTitle: "ETC College America",
         date: "2014/2016",
@@ -99,7 +72,6 @@ let workExperiences = [
 
 let educations = [
     {
-        id: 0,
         title: "ULUDAG UNIVERSITY",
         section: "Physict Departmant",
         date: "2006/2013",
@@ -110,7 +82,8 @@ let educations = [
 app.get("/api/createDefaultValue", async (req,res)=> {
     let personalModel = await Personal.findOne();
     if(personalModel === null){
-        personalModel = new Personal(person)
+        personalModel = new Personal(person);
+        personalModel._id = uuidv4();
         await personalModel.save();
     }
 
@@ -123,6 +96,37 @@ app.get("/api/createDefaultValue", async (req,res)=> {
         }
     }
 
+    for(let s of socialMedias){
+        let socialMedia = await SocialMedia.findOne({title: s.title});
+        if(socialMedia === null){
+            socialMedia = new SocialMedia(s);
+            socialMedia._id = uuidv4();
+            await socialMedia.save();
+        }
+    }
+
+    for(let w of workExperiences){
+        let workExperience = await WorkExperience.findOne({
+            title: w.title,
+            subTitle: w.subTitle, 
+            date: w.date,
+            description: w.description});
+        if(workExperience === null){
+            workExperience = new WorkExperience(w);
+            workExperience._id = uuidv4();
+            await workExperience.save();
+        }
+    }
+
+    for(let e of educations){
+        let education = await Education.findOne({title: e.title,section: e.section});
+        if(education === null){
+            education = new Education(e);
+            education._id = uuidv4();
+            await education.save();
+        }
+    }
+
     res.json({message: "Create default value is successful"});
 });
 
@@ -130,27 +134,58 @@ app.get("", (req, res)=> {
     res.json({message: "Api çalışıyor"});
 });
 
-app.get("/api/get", (req,res)=> {
+app.get("/api/get", async (req,res)=> {
     const myInformation = {
-        person: person,
-        skills: skills,
-        socialMedias: socialMedias,
-        workExperiences: workExperiences,
-        educations: educations
+        person: await Personal.findOne(),
+        skills: await Skill.find(),
+        socialMedias: await SocialMedia.find(),
+        workExperiences: await WorkExperience.find(),
+        educations: await Education.find()
     }
     res.json(myInformation);
 });
 
-app.post("/api/set", (req,res)=> {
+app.post("/api/set", async(req,res)=> {
     const body = req.body;
-    person = body.person;
+    //Person update
+    person = await Personal.findOne();
+    const newPerson = new Personal(body.person);
+    newPerson._id = person._id;
+    await Personal.findByIdAndUpdate(person._id, newPerson);
+
     skills = body.skills;
+
+    const currentSkills = await Skill.find();
+    for(let c of currentSkills){
+        const result = skills.findIndex(p=> p._id === c.id);
+        if(result === -1){
+            await Skill.findByIdAndRemove(c._id);
+        }
+    }
+
+    for(let s of skills){
+        if(s._id === null){
+            const skill = new Skill();
+            skill._id = uuidv4();
+            skill.title = s.title;
+            skill.rate = s.rate;
+            await skill.save();
+        }else{
+            const skill = new Skill();
+            skill._id = s._id
+            skill.title = s.title;
+            skill.rate = s.rate;
+            await Skill.findByIdAndUpdate(s._id, skill)
+        }
+    }
+
+
     socialMedias = body.socialMedias;
     workExperiences = body.workExperiences;
     educations = body.educations;
 
     res.json({message: "Update is successful"})
-})
+});
 
 
 
