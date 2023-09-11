@@ -14,6 +14,8 @@ connect();
 app.use(cors());
 app.use(express.json());
 
+const apiRoutes = express.Router();
+
 let person = {    
     name: "Taner Saydam",
     title: "Full Stack Sofware Traning",
@@ -79,7 +81,7 @@ let educations = [
     }
 ]
 
-app.get("/api/createDefaultValue", async (req,res)=> {
+apiRoutes.get("/api/createDefaultValue", async (req,res)=> {
     let personalModel = await Personal.findOne();
     if(personalModel === null){
         personalModel = new Personal(person);
@@ -130,11 +132,11 @@ app.get("/api/createDefaultValue", async (req,res)=> {
     res.json({message: "Create default value is successful"});
 });
 
-app.get("", (req, res)=> {
+apiRoutes.get("", (req, res)=> {
     res.json({message: "Api çalışıyor"});
 });
 
-app.get("/api/get", async (req,res)=> {
+apiRoutes.get("/api/get", async (req,res)=> {
     const myInformation = {
         person: await Personal.findOne(),
         skills: await Skill.find(),
@@ -145,7 +147,7 @@ app.get("/api/get", async (req,res)=> {
     res.json(myInformation);
 });
 
-app.post("/api/set", async(req,res)=> {
+apiRoutes.post("/api/set", async(req,res)=> {
     const body = req.body;
     //Person update
     person = await Personal.findOne();
