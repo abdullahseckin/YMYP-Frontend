@@ -4,13 +4,16 @@ let month =  "01";
 let year =  "2023";
 
 let myData = {};
+//const apiUrl = "http://localhost:5000/api"
+const apiUrl = "https://my-cv-server-with-express-d798l2luf-tanersaydam.vercel.app"
 
 function get() {
+    const apiUrl = "https://my-cv-server-with-express-d798l2luf-tanersaydam.vercel.app"
     document.getElementById("blog").style.display = "none";
     document.getElementById("blog-loading").style.display = "block";
     //document.getElementById("spinner").style.display = "flex";
     document.getElementById("error").style.display = "none";
-    axios.get("http://localhost:5000/api/get")
+    axios.get(`${apiUrl}/get`)
         .then(res => {
             myData = res.data;
             setMyInformation(myData.person);
@@ -106,7 +109,7 @@ function clear(){
 }
 
 function save(){
-    axios.post("http://localhost:5000/api/set",myData)
+    axios.post(`${apiUrl}/set`,myData)
         .then(res=> {
             clear();
     });
