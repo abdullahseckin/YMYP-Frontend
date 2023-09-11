@@ -1,6 +1,38 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const { v4: uuidv4 } = require('uuid');
+const uri = "mongodb+srv://test:1@testdb.qrdkma9.mongodb.net/";
+
+mongoose.connect(uri).then(res=> {
+    console.log("Mongodb bağlantısı başarılı");
+});
+
+const personalSchema = new Schema({
+    name: String,
+    title: String,
+    phone: String,
+    email: String,
+    address: String,
+    dateOfBirth: Date,
+    avatar: String,
+    aboutMe: String
+});
+
+const Personal = mongoose.model("Personal", personalSchema);
+
+const skillSchema = new Schema({
+    _id: String,
+    title: {
+        type: String,
+        unique: true
+    },
+    rate: Number
+});
+
+const Skill = mongoose.model("Skill",skillSchema);
 
 app.use(cors());
 app.use(express.json());
@@ -20,17 +52,14 @@ let person = {
 
 let skills = [
     {
-        id: 0,
         title: "C#",
         rate: 80
     },
     {
-        id: 1,
         title: "HTML",
         rate: 100
     },
     {
-        id: 2,
         title: "JS",
         rate: 50
     }
@@ -77,6 +106,25 @@ let educations = [
         description: "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci repellat corrupti eius excepturi est repellendus. Maiores, reiciendis excepturi, enim provident molestiae quisquam atque recusandae, id et quod consequuntur pariatur magni."
     }
 ]
+
+app.get("/api/createDefaultValue", async (req,res)=> {
+    let personalModel = await Personal.findOne();
+    if(personalModel === null){
+        personalModel = new Personal(person)
+        await personalModel.save();
+    }
+
+    for(let s of skills){
+        let skill = await Skill.findOne({title: s.title});
+        if(skill === null){
+            skill = new Skill(s);
+            skill._id = uuidv4();
+            await skill.save();
+        }
+    }
+
+    res.json({message: "Create default value is successful"});
+});
 
 app.get("", (req, res)=> {
     res.json({message: "Api çalışıyor"});
