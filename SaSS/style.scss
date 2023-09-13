@@ -24,8 +24,8 @@ ul li{
 div{
     width: 200px;
     height: 100px;
-    background-color: green;
-    color: green;
+    // background-color: green;
+    // color: green;
 }
 
 
@@ -37,6 +37,9 @@ div{
 ul{
     list-style: none;
     @include font-size;
+    :first-child{
+        color: green;
+    }
     li{
         list-style: none;
         width: 100%;
@@ -45,5 +48,17 @@ ul{
             text-decoration: none;
             @include font-size;
         }
+    }
+}
+
+
+div{
+    > span {
+        color: red;
+    }
+
+    span{
+        display: block;
+        color: green;
     }
 }

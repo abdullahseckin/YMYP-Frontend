@@ -17,14 +17,15 @@ ul li {
 div {
   width: 200px;
   height: 100px;
-  background-color: green;
-  color: green;
 }
 
 ul {
   list-style: none;
   font-size: 150px;
   color: red;
+}
+ul :first-child {
+  color: green;
 }
 ul li {
   list-style: none;
@@ -36,4 +37,12 @@ ul li a {
   text-decoration: none;
   font-size: 150px;
   color: red;
+}
+
+div > span {
+  color: red;
+}
+div span {
+  display: block;
+  color: green;
 }/*# sourceMappingURL=style.css.map */
