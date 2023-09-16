@@ -4,11 +4,11 @@ let month =  "01";
 let year =  "2023";
 
 let myData = {};
-//const apiUrl = "http://localhost:5000/api"
-const apiUrl = "https://my-cv-server-with-express-d798l2luf-tanersaydam.vercel.app"
+const apiUrl = "http://localhost:5000/api"
+//const apiUrl = "https://my-cv-server-with-express-d798l2luf-tanersaydam.vercel.app"
 
 function get() {
-    const apiUrl = "https://my-cv-server-with-express-d798l2luf-tanersaydam.vercel.app"
+    const apiUrl = "http://localhost:5000/api"
     document.getElementById("blog").style.display = "none";
     document.getElementById("blog-loading").style.display = "block";
     //document.getElementById("spinner").style.display = "flex";

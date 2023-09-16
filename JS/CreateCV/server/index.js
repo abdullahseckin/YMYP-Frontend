@@ -81,7 +81,7 @@ let educations = [
     }
 ]
 
-apiRoutes.get("/api/createDefaultValue", async (req,res)=> {
+app.get("/api/createDefaultValue", async (req,res)=> {
     let personalModel = await Personal.findOne();
     if(personalModel === null){
         personalModel = new Personal(person);
@@ -132,11 +132,11 @@ apiRoutes.get("/api/createDefaultValue", async (req,res)=> {
     res.json({message: "Create default value is successful"});
 });
 
-apiRoutes.get("", (req, res)=> {
+app.get("", (req, res)=> {
     res.json({message: "Api çalışıyor"});
 });
 
-apiRoutes.get("/api/get", async (req,res)=> {
+app.get("/api/get", async (req,res)=> {
     const myInformation = {
         person: await Personal.findOne(),
         skills: await Skill.find(),
@@ -147,7 +147,7 @@ apiRoutes.get("/api/get", async (req,res)=> {
     res.json(myInformation);
 });
 
-apiRoutes.post("/api/set", async(req,res)=> {
+app.post("/api/set", async(req,res)=> {
     const body = req.body;
     //Person update
     person = await Personal.findOne();
@@ -191,4 +191,4 @@ apiRoutes.post("/api/set", async(req,res)=> {
 
 const port = process.env.PORT || 5000;
 
-app.listen(port, ()=> console.log("Uygulama ayakta"));
+app.listen(port, ()=> console.log("Uygulama ayakta: " + port));
