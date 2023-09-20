@@ -157,6 +157,7 @@ interface Reactangle{
     width: number
 }
 
+
 interface ColorReactangle extends Reactangle{
     color: string
 }
@@ -175,3 +176,24 @@ const colorReactangle: ColorReactangle = {
 //Union | (OR)
 let newVariable: string | undefined | number | boolean;
 const newVariable2: (string | undefined) = "undefined";
+
+function getTime(): number{
+    return new Date().getTime();
+}
+
+function printHello(): void{
+    console.log("İşem Tamamlandı")
+}
+
+function multiply(a: number,b: number, c: number = 10, d?: number): number{
+    return a * b;
+}
+
+multiply(1,2);
+
+type User2 = (value: number) => number;
+
+const userFunction:  User2 = (value) => value * -1;
+
+let x: unknown = "Hello World";
+console.log((x as string).length);
