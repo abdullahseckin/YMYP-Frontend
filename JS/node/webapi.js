@@ -4,14 +4,14 @@ const cors = require("cors");
 const app = express();
 
 
-app.use(express.json());
+//app.use(express.json());
 app.use(cors());
 
 const todos = [];
 let id = 0;
 
 
-app.get("/api/hello",(req,res)=> {
+app.get("",(req,res)=> {
     res.json({message: "Api call is succesful"})
 });
 
